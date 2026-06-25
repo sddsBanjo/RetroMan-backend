@@ -13,10 +13,8 @@ export const auth = betterAuth({
         requireEmailVerification: false,
     },
 
-    // Configurações de segurança
     secret: process.env.BETTER_AUTH_SECRET,
 
-    // Configurações de sessão
     session: {
         expiresIn: 60 * 60 * 24 * 7,
         updateAge: 60 * 60 * 24,
@@ -26,11 +24,12 @@ export const auth = betterAuth({
         },
     },
 
-    // Provedores OAuth (opcional)
-    //    socialProviders: {
-    //    github: {
-    //        clientId: process.env.GITHUB_CLIENT_ID,
-    //        clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    //    },
-    //},
-})
+    user: {
+        additionalFields: {
+            username: {
+                type: "string",
+                required: true,
+            },
+        },
+    },
+});
