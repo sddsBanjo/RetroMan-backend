@@ -17,4 +17,23 @@ import * as Prisma from './internal/prismaNamespaceBrowser.ts'
 export { Prisma }
 export * as $Enums from './enums.ts'
 export * from './enums.ts';
-
+/**
+ * Model User
+ * 
+ */
+export type User = Prisma.UserModel
+/**
+ * Model Platform
+ * 
+ */
+export type Platform = Prisma.PlatformModel
+/**
+ * Model Game
+ * 
+ */
+export type Game = Prisma.GameModel
+/**
+ * Model UserGame
+ * 
+ */
+export type UserGame = Prisma.UserGameModel

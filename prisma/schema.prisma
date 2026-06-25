@@ -11,3 +11,92 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum GameStatus {
+  Backlog
+  Playing
+  Completed
+  Dropped
+  Wishlist
+}
+
+model User {
+  id        String   @id
+
+  username  String   @unique
+  email     String   @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  games     UserGame[]
+
+  @@map("users")
+}
+
+model Platform {
+  id           String   @id @default(uuid())
+  name         String   @unique
+  manufacturer String?
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  games        Game[]
+
+  @@map("platforms")
+}
+
+model Game {
+  id           String   @id @default(uuid())
+  title        String
+
+  platformId   String
+  platform     Platform @relation(fields: [platformId], references: [id], onDelete: Cascade)
+
+  publisher    String?
+  developer    String?
+  genre        String?
+  coverUrl     String?  @db.Text
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  userGames    UserGame[]
+
+  @@unique([title, platformId])
+  @@index([platformId])
+  @@map("games")
+}
+
+model UserGame {
+  id                 String     @id @default(uuid())
+
+  userId             String
+  gameId             String
+
+  user               User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  game               Game       @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  status             GameStatus
+
+  progressPercentage Int        @default(0)
+  personalRating     Int?
+  hoursPlayed        Float      @default(0)
+
+  dateAdded          DateTime   @default(now())
+  dateStarted        DateTime?
+  dateCompleted      DateTime?
+  personalNotes      String?    @db.Text
+
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+
+  @@unique([userId, gameId])
+
+  @@index([userId])
+  @@index([gameId])
+  @@index([status])
+
+  @@map("user_games")
+}
