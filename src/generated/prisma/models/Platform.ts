@@ -317,10 +317,6 @@ export type PlatformScalarRelationFilter = {
   isNot?: Prisma.PlatformWhereInput
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type PlatformCreateNestedOneWithoutGamesInput = {
   create?: Prisma.XOR<Prisma.PlatformCreateWithoutGamesInput, Prisma.PlatformUncheckedCreateWithoutGamesInput>
   connectOrCreate?: Prisma.PlatformCreateOrConnectWithoutGamesInput

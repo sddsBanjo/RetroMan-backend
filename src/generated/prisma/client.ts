@@ -61,3 +61,18 @@ export type Game = Prisma.GameModel
  * 
  */
 export type UserGame = Prisma.UserGameModel
+/**
+ * Model Session
+ * 
+ */
+export type Session = Prisma.SessionModel
+/**
+ * Model Account
+ * 
+ */
+export type Account = Prisma.AccountModel
+/**
+ * Model Verification
+ * 
+ */
+export type Verification = Prisma.VerificationModel
